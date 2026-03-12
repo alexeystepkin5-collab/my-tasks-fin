@@ -37,6 +37,7 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
 
   return (
+
     <Stack direction="row" spacing={2} width="80vw">
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}
@@ -52,6 +53,7 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
       <Box width="50%">
         {selectedTaskId !== null ? (
           <Stack direction="column" spacing={2}>
+            
             <Typography variant="h4">
               {tasks.find(task => task.id === selectedTaskId)?.title}
             </Typography>
@@ -61,11 +63,11 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
              <Typography variant="body1">
               {tasks.find(task => task.id === selectedTaskId)?.isdone&&"Выполнено!"}
             </Typography>
-
           </Stack>
         ) : (
           <Typography variant="h6">Выберите задачу</Typography>
-        )}
+        )
+      }
       </Box>
 
     </Stack>

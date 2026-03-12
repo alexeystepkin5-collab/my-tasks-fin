@@ -3,7 +3,7 @@ import type { Task } from '../types'
 
 type TaskPayload = Omit<Task, 'id'>
 
-let nextTaskId = 3
+let nextTaskId = 1
 
 export function makeServer() {
   return createServer({
@@ -13,22 +13,9 @@ export function makeServer() {
 
     seeds(server: any) {
       const seedTasks: Task[] = [
-        {
-          id: 1,
-          title: 'Выполнить домашнее задание',
-          priority: 'High',
-          isdone: true,
-        },
-        {
-          id: 2,
-          title: 'Хорошо отдохнуть',
-          priority: 'High',
-          isdone: false,
-        },
+        
       ]
-
       seedTasks.forEach((task) => server.create('task', task))
-    
     },
 
     routes() {
