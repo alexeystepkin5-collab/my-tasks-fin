@@ -3,7 +3,7 @@ import type { Task } from "../types"
 import { Button, Stack, Typography } from "@mui/material"
 import { useState } from "react"
 import { TaskAddDialog } from "./TaskAddDialog"
-//import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
+
 
 type TasksListProps = {
   tasks: Task[]
@@ -42,7 +42,7 @@ export const TasksList: React.FC<TasksListProps> = ({ tasks, onAddTask, selected
           sx={{
             bgcolor: task.id === selectedTaskId ? "rgba(255, 255, 255, 0.25)" : "transparent",
             "&:hover": {
-              bgcolor: "rgba(255, 255, 255, 0.1)",
+              bgcolor: "rgb(192, 255, 255)",
               cursor: "pointer"
             }
           }}

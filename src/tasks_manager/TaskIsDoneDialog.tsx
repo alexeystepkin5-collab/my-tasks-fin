@@ -28,9 +28,9 @@ export const TaskIsDoneDialog: React.FC<TaskIsDoneDialogProps> = ({
   const [isdone, setisDone] = useState(false);
 
   const handleSubmit = () => {
-    if (!title.trim() || !priority.trim()) {
-      return;
-    }
+     if (!isdone) {
+       return;
+     }
 
     onIsDone({
       title: title.trim(),
@@ -52,7 +52,7 @@ export const TaskIsDoneDialog: React.FC<TaskIsDoneDialogProps> = ({
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Добавить задачу</DialogTitle>
+      <DialogTitle>Задача выполнена?</DialogTitle>
       <DialogContent>
         <Stack spacing={2} sx={{ mt: 1 }}>
           <FormControlLabel
@@ -71,7 +71,7 @@ export const TaskIsDoneDialog: React.FC<TaskIsDoneDialogProps> = ({
         <Button
           onClick={handleSubmit}
           variant="contained"
-          disabled={!title.trim() || !priority.trim()}
+          disabled={!isdone}
         >
           Подтвердить
         </Button>
