@@ -8,7 +8,7 @@ import { createTask, getTasks, type CreateTaskDto } from "../api/tasks"
 import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
 
 type TasksManagerProps = {
-
+   onSetTask: (task: Task) => void
 }
 
 
@@ -38,13 +38,22 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
 
+  /////////////////автоматически добавил "недостающее объявление"
+  function onSetTask(arg0: Task[]) {
+    throw new Error("Function not implemented.")
+  }
+///////////////////////////////////////////////////////////////////
   return (
 
     <Stack direction="row" spacing={2} width="80vw">
       <TaskIsDoneDialog
             open={openDialog}
             onClose={() => setOpenDialog(false)}
-            onIsDone={() => alert('Выполнено!')} // что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
+            //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
+            //onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.title)}
+            onIsDone={() => {
+              onSetTask(tasks.map(task => task.id === selectedTaskId ? { ...task, isdone: true } : task));
+            }}
       />
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}
