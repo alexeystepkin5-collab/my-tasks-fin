@@ -8,7 +8,7 @@ import { createTask, getTasks, type CreateTaskDto } from "../api/tasks"
 import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
 
 type TasksManagerProps = {
-   onSetTask: (task: Task) => void
+   //onSetTask: (task: Task) => void
 }
 
 
@@ -39,9 +39,9 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   /////////////////автоматически добавил "недостающее объявление"
-  function onSetTask(arg0: Task[]) {
-    throw new Error("Function not implemented.")
-  }
+  // function onSetTask(arg0: Task[]) {
+  //   throw new Error("Function not implemented.")
+  // }
 ///////////////////////////////////////////////////////////////////
   return (
 
@@ -50,10 +50,10 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
             open={openDialog}
             onClose={() => setOpenDialog(false)}
             //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
-            //onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.title)}
-            onIsDone={() => {
-              onSetTask(tasks.map(task => task.id === selectedTaskId ? { ...task, isdone: true } : task));
-            }}
+            onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.title)}
+            // onIsDone={() => {
+            //   onSetTask(tasks.map(task => task.id === selectedTaskId ? { ...task, isdone: true } : task));
+            // }}
       />
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}
