@@ -7,7 +7,7 @@ import { TaskAddDialog } from "./TaskAddDialog"
 
 type TasksListProps = {
   tasks: Task[]
-  onAddTask: (task: Task) => void
+  onAddTask: (task: Task) => void  // функция которая принимает параметром книгу и ничего не возвращает
   selectedTaskId: number | null
   onSelectTask: (id: number) => void
 }
@@ -15,8 +15,10 @@ type TasksListProps = {
 export const TasksList: React.FC<TasksListProps> = ({ tasks, onAddTask, selectedTaskId, onSelectTask }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
+  
   return (
     <Stack direction="column" spacing={2}>
+
       <Button
         variant="outlined"
         size="small"

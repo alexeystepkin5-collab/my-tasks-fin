@@ -1,14 +1,14 @@
 import { useState } from "react"
 import type { Task } from "../types"
 import { Stack } from "@mui/system"
-import { Box, Typography } from "@mui/material"
+import { Checkbox, FormControlLabel, Box, Typography } from "@mui/material"
 import { TasksList } from "./TasksList"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { createTask, getTasks, type CreateTaskDto } from "../api/tasks"
 import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
 
 type TasksManagerProps = {
-   //onSetTask: (task: Task) => void
+
 }
 
 
@@ -37,29 +37,40 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
 
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<boolean>(false);
+  const filteredTasks=(!searchQuery)?
+  tasks : tasks.filter(task => task.isdone !== searchQuery);
 
   /////////////////автоматически добавил "недостающее объявление"
-  //  function onSetTask(arg0: Task[]) {
-  //    throw new Error("Function not implemented.")
-  //  }
-///////////////////////////////////////////////////////////////////
-  return (
-
+   function onSetTask(task: Task[]) {
+     throw new Error("Function not implemented.")
+   }
+  ///////////////////////////////////////////////////////////////////
+  
+return (
     <Stack direction="row" spacing={2} width="80vw">
       <TaskIsDoneDialog
             open={openDialog}
             onClose={() => setOpenDialog(false)}
             //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
-            onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.title)}
-            //  onIsDone={() => {
-            //    onSetTask(tasks.map(task => task.id === selectedTaskId ? { ...task, isdone: true } : task));
-            //  }}
+            //onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.title)}
+             onIsDone={() => {
+               onSetTask(tasks.map(task => task.id === selectedTaskId ? { ...task, isdone: true } : task));
+             }}
       />
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}
+        <FormControlLabel   //фильтр отображения только не выполненых задач
+          control={
+          <Checkbox
+            checked={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.checked)}
+            />
+        }
+        label="Только не выполненные задачи"
+        />
         <TasksList
-          tasks={tasks}
-          
+          tasks={filteredTasks} //{tasks} //{filteredTasks}
           onAddTask={(newTask) => createTaskMutation.mutateAsync(newTask)}
           selectedTaskId={selectedTaskId}
           onSelectTask={(id) => setSelectedTaskId(id)}
