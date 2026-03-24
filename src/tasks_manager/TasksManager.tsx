@@ -7,8 +7,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { createTask, getTasks, type CreateTaskDto } from "../api/tasks"
 import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
 
-type TasksManagerProps = {
 
+type TasksManagerProps = {
+  //onIsDoneTask: (task: Task) => void  // функция которая принимает параметром книгу и ничего не возвращает
+  //onIsDoneTask: (id: number) => void
 }
 
 
@@ -42,9 +44,9 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
   tasks : tasks.filter(task => task.isdone !== searchQuery);
 
   /////////////////автоматически добавил "недостающее объявление"
-   function onSetTask(task: Task[]) {
-     throw new Error("Function not implemented.")
-   }
+  //  function onSetTask(task: Task[]) {
+  //    throw new Error("Function not implemented.")
+  //  }
   ///////////////////////////////////////////////////////////////////
   
 return (
@@ -53,10 +55,9 @@ return (
             open={openDialog}
             onClose={() => setOpenDialog(false)}
             //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
-            //onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.title)}
-             onIsDone={() => {
-               onSetTask(tasks.map(task => task.id === selectedTaskId ? { ...task, isdone: true } : task));
-             }}
+            onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.id)}
+            //onIsDone={() => onIsDoneTask( )}
+             
       />
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}

@@ -14,7 +14,6 @@ type TasksListProps = {
 
 export const TasksList: React.FC<TasksListProps> = ({ tasks, onAddTask, selectedTaskId, onSelectTask }) => {
   const [openDialog, setOpenDialog] = useState(false);
-
   
   return (
     <Stack direction="column" spacing={2}>
