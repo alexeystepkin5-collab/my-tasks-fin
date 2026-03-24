@@ -9,12 +9,13 @@ import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
 
 
 type TasksManagerProps = {
-  //onIsDoneTask: (task: Task) => void  // функция которая принимает параметром книгу и ничего не возвращает
+  tasks: Task[]
+  onIsDoneTask: (task: Task) => void  // функция которая принимает параметром книгу и ничего не возвращает
   //onIsDoneTask: (id: number) => void
 }
 
 
-export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
+export const TasksManager: React.FC<TasksManagerProps> = ({tasks, onIsDoneTask}) => {
  
   const queryClient = useQueryClient();
 
@@ -28,7 +29,7 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
     queryFn: getTasks,
   })
 
-  const tasks = data ?? [];
+  tasks = data ?? [];  // здесь убрал объявление const tasks 
 
   const createTaskMutation = useMutation<Task, Error, CreateTaskDto>({
     mutationFn: createTask,
@@ -43,21 +44,15 @@ export const TasksManager: React.FC<TasksManagerProps> = ({ }) => {
   const filteredTasks=(!searchQuery)?
   tasks : tasks.filter(task => task.isdone !== searchQuery);
 
-  /////////////////автоматически добавил "недостающее объявление"
-  //  function onSetTask(task: Task[]) {
-  //    throw new Error("Function not implemented.")
-  //  }
-  ///////////////////////////////////////////////////////////////////
-  
 return (
     <Stack direction="row" spacing={2} width="80vw">
       <TaskIsDoneDialog
             open={openDialog}
             onClose={() => setOpenDialog(false)}
             //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
-            onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.id)}
-            //onIsDone={() => onIsDoneTask( )}
-             
+            //onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.id)}
+            onIsDone={() => console.log("Выбранный id:", selectedTaskId)}
+
       />
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}
@@ -71,7 +66,7 @@ return (
         label="Только не выполненные задачи"
         />
         <TasksList
-          tasks={filteredTasks} //{tasks} //{filteredTasks}
+          tasks={filteredTasks} //{tasks}
           onAddTask={(newTask) => createTaskMutation.mutateAsync(newTask)}
           selectedTaskId={selectedTaskId}
           onSelectTask={(id) => setSelectedTaskId(id)}
