@@ -42,7 +42,8 @@ export const TasksManager: React.FC<TasksManagerProps> = ({tasks, onIsDoneTask})
   const [openDialog, setOpenDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState<boolean>(false);
   const filteredTasks=(!searchQuery)?
-  tasks : tasks.filter(task => task.isdone !== searchQuery);
+    tasks : tasks.filter(task => task.isdone !== searchQuery);
+  const selectedTask=tasks.find(task => task.id === selectedTaskId);
 
 return (
     <Stack direction="row" spacing={2} width="80vw">
@@ -50,12 +51,15 @@ return (
             open={openDialog}
             onClose={() => setOpenDialog(false)}
             //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
-            //onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.id)}
-            onIsDone={() => console.log("Выбранная задача:", 
-              (tasks.find(task => task.id === selectedTaskId)),
-              " из: ",
-              (tasks),
-            )}
+            onIsDone={() => alert(JSON.stringify(selectedTask, null, 2))}
+            // onIsDone={() => console.log("Выбранная задача:", 
+            //   (tasks.find(task => task.id === selectedTaskId)),
+            //   " из: ",
+            //   (tasks),
+            // )}
+            // onIsDone={() => 
+            //   onIsDoneTask(selectedTask!)
+            // }
             
       />
       <Box width="50%">
