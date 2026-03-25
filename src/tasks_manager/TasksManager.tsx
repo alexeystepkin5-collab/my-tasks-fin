@@ -51,8 +51,12 @@ return (
             onClose={() => setOpenDialog(false)}
             //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
             //onIsDone={() => alert(tasks.find(task => task.id === selectedTaskId)?.id)}
-            onIsDone={() => console.log("Выбранный id:", selectedTaskId)}
-
+            onIsDone={() => console.log("Выбранная задача:", 
+              (tasks.find(task => task.id === selectedTaskId)),
+              " из: ",
+              (tasks),
+            )}
+            
       />
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}

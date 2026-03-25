@@ -35,7 +35,7 @@ export const TaskIsDoneDialog: React.FC<TaskIsDoneDialogProps> = ({
     onIsDone({
       title: title.trim(),
       priority: priority.trim(),
-      isdone, 
+      isdone: true, 
     });
 
     handleClose();
