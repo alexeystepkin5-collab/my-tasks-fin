@@ -11,6 +11,8 @@ import {
 
 } from '@mui/material';
 import type { Task } from '../types';
+//import {TasksManager} from './TasksManager';
+//import {selectedTask} from './TasksManager';
 
 interface TaskIsDoneDialogProps {
   open: boolean;
@@ -23,6 +25,7 @@ export const TaskIsDoneDialog: React.FC<TaskIsDoneDialogProps> = ({
     onClose,
     onIsDone
 }) => {
+  // const [id, setid] = useState(0);
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState('');
   const [isdone, setisDone] = useState(false);
@@ -31,11 +34,14 @@ export const TaskIsDoneDialog: React.FC<TaskIsDoneDialogProps> = ({
      if (!isdone) {
        return;
      }
+    // console.log(onIsDone)
+    // console.log(isdone)
 
     onIsDone({
+      // id,
       title: title.trim(),
       priority: priority.trim(),
-      isdone: true, 
+      isdone
     });
 
     handleClose();

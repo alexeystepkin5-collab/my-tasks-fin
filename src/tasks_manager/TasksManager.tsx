@@ -10,10 +10,8 @@ import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
 
 type TasksManagerProps = {
   tasks: Task[]
-  onIsDoneTask: (task: Task) => void  // функция которая принимает параметром книгу и ничего не возвращает
-  //onIsDoneTask: (id: number) => void
+  onIsDoneTask: (task: Task) => void  // функция которая принимает параметром дело и ничего не возвращает
 }
-
 
 export const TasksManager: React.FC<TasksManagerProps> = ({tasks, onIsDoneTask}) => {
  
@@ -31,7 +29,7 @@ export const TasksManager: React.FC<TasksManagerProps> = ({tasks, onIsDoneTask})
 
   tasks = data ?? [];  // здесь убрал объявление const tasks 
 
-  const createTaskMutation = useMutation<Task, Error, CreateTaskDto>({
+  const createTaskMutation = useMutation<Task, Error, CreateTaskDto>({  //здесь происходит измениение спика задач
     mutationFn: createTask,
     onSuccess: (createdTask) => {
             queryClient.setQueryData<Task[]>(['tasks'], (current = []) => [...current, createdTask])
@@ -43,24 +41,18 @@ export const TasksManager: React.FC<TasksManagerProps> = ({tasks, onIsDoneTask})
   const [searchQuery, setSearchQuery] = useState<boolean>(false);
   const filteredTasks=(!searchQuery)?
     tasks : tasks.filter(task => task.isdone !== searchQuery);
-  const selectedTask=tasks.find(task => task.id === selectedTaskId);
+  const selectedTask = tasks.find(task => task.id === selectedTaskId)
+  
 
 return (
     <Stack direction="row" spacing={2} width="80vw">
       <TaskIsDoneDialog
             open={openDialog}
-            onClose={() => setOpenDialog(false)}
-            //что то надо сделать здесь что бы данные обновились в памяти и перезагрузились в боксы.
-            onIsDone={() => alert(JSON.stringify(selectedTask, null, 2))}
-            // onIsDone={() => console.log("Выбранная задача:", 
-            //   (tasks.find(task => task.id === selectedTaskId)),
-            //   " из: ",
-            //   (tasks),
-            // )}
+            onClose={() => setOpenDialog(false)}          
             // onIsDone={() => 
             //   onIsDoneTask(selectedTask!)
             // }
-            
+            onIsDone={() => alert(JSON.stringify(selectedTask, null, 2))}
       />
       <Box width="50%">
         {isLoading && <Typography>Загрузка...</Typography>}
