@@ -9,11 +9,11 @@ import { TaskIsDoneDialog } from "./TaskIsDoneDialog"
 
 
 type TasksManagerProps = {
-  tasks: Task[]
-  onIsDoneTask: (task: Task) => void  // функция которая принимает параметром дело и ничего не возвращает
+  // tasks: Task[]
+  // onIsDoneTask: (task: Task) => void  // функция которая принимает параметром дело и ничего не возвращает
 }
 
-export const TasksManager: React.FC<TasksManagerProps> = ({tasks, onIsDoneTask}) => {
+export const TasksManager: React.FC<TasksManagerProps> = ({}) => {
  
   const queryClient = useQueryClient();
 
@@ -27,7 +27,7 @@ export const TasksManager: React.FC<TasksManagerProps> = ({tasks, onIsDoneTask})
     queryFn: getTasks,
   })
 
-  tasks = data ?? [];  // здесь убрал объявление const tasks 
+  const tasks = data ?? []; 
 
   const createTaskMutation = useMutation<Task, Error, CreateTaskDto>({  //здесь происходит измениение спика задач
     mutationFn: createTask,
@@ -49,9 +49,6 @@ return (
       <TaskIsDoneDialog
             open={openDialog}
             onClose={() => setOpenDialog(false)}          
-            // onIsDone={() => 
-            //   onIsDoneTask(selectedTask!)
-            // }
             onIsDone={() => alert(JSON.stringify(selectedTask, null, 2))}
       />
       <Box width="50%">
